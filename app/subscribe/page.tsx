@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/Toast'
 
 export default function SubscribePage() {
   const router = useRouter()
   const supabase = createClient()
+  const { showToast } = useToast()
   const [loading, setLoading] = useState(false)
   const [role, setRole] = useState<'parent' | 'professional' | null>(null)
 
@@ -38,7 +40,7 @@ export default function SubscribePage() {
       } = await supabase.auth.getUser()
 
       if (!user?.email) {
-        alert('Please sign in to subscribe')
+        showToast('Please sign in to subscribe', 'error')
         return
       }
 
@@ -57,11 +59,11 @@ export default function SubscribePage() {
         const { url } = await response.json()
         window.location.href = url
       } else {
-        alert('Failed to create checkout session')
+        showToast('Failed to create checkout session', 'error')
       }
     } catch (error) {
       console.error('Error creating subscription:', error)
-      alert('Error creating subscription')
+      showToast('Error creating subscription', 'error')
     } finally {
       setLoading(false)
     }

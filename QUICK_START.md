@@ -26,7 +26,7 @@ All services are configured and database migrations are complete.
 ### Test User Flows
 
 **Professional Onboarding:**
-1. Go to http://localhost:3000/(marketing)/auth
+1. Go to http://localhost:3000/auth
 2. Sign up as a "Caregiver"
 3. Verify phone number (use a number verified in Twilio test mode)
 4. Complete AI onboarding interview

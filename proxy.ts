@@ -105,6 +105,11 @@ export async function proxy(request: NextRequest) {
       .eq('id', user.id)
       .single()
 
+    // Pass user role via header to avoid duplicate queries in page components
+    if (userData?.role) {
+      response.headers.set('x-user-role', userData.role)
+    }
+
     if (!userData?.phone_verified) {
       // Allow access to phone verification page only
       if (!path.includes('/verify-phone')) {
