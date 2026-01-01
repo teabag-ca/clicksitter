@@ -1,4 +1,5 @@
 import twilio from 'twilio'
+import { redis } from '@/lib/redis/client'
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID!
 const authToken = process.env.TWILIO_AUTH_TOKEN!
@@ -6,17 +7,17 @@ const phoneNumber = process.env.TWILIO_PHONE_NUMBER!
 
 const client = twilio(accountSid, authToken)
 
-// Store OTP codes temporarily (in production, use Redis)
-const otpStore = new Map<string, { code: string; expiresAt: number }>()
+// OTP expiration time: 10 minutes
+const OTP_EXPIRY = 10 * 60 // 10 minutes in seconds
 
 export async function sendOTP(phone: string): Promise<{ success: boolean; error?: string }> {
   try {
     // Generate 6-digit OTP
     const code = Math.floor(100000 + Math.random() * 900000).toString()
-    const expiresAt = Date.now() + 10 * 60 * 1000 // 10 minutes
     
-    // Store OTP
-    otpStore.set(phone, { code, expiresAt })
+    // Store OTP in Redis with expiration
+    const otpKey = `otp:${phone}`
+    await redis.set(otpKey, code, { ex: OTP_EXPIRY })
     
     // Send SMS via Twilio
     await client.messages.create({
@@ -26,40 +27,34 @@ export async function sendOTP(phone: string): Promise<{ success: boolean; error?
     })
     
     return { success: true }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending OTP:', error)
-    return { success: false, error: 'Failed to send verification code' }
-  }
-}
-
-export function verifyOTP(phone: string, code: string): boolean {
-  const stored = otpStore.get(phone)
-  
-  if (!stored) {
-    return false
-  }
-  
-  if (Date.now() > stored.expiresAt) {
-    otpStore.delete(phone)
-    return false
-  }
-  
-  if (stored.code !== code) {
-    return false
-  }
-  
-  // OTP verified, remove it
-  otpStore.delete(phone)
-  return true
-}
-
-// Clean up expired OTPs periodically
-setInterval(() => {
-  const now = Date.now()
-  for (const [phone, data] of otpStore.entries()) {
-    if (now > data.expiresAt) {
-      otpStore.delete(phone)
+    return { 
+      success: false, 
+      error: error.message || 'Failed to send verification code' 
     }
   }
-}, 60000) // Run every minute
+}
+
+export async function verifyOTP(phone: string, code: string): Promise<boolean> {
+  try {
+    const otpKey = `otp:${phone}`
+    const storedCode = await redis.get<string>(otpKey)
+    
+    if (!storedCode) {
+      return false
+    }
+    
+    if (storedCode !== code) {
+      return false
+    }
+    
+    // OTP verified, remove it
+    await redis.del(otpKey)
+    return true
+  } catch (error) {
+    console.error('Error verifying OTP:', error)
+    return false
+  }
+}
 

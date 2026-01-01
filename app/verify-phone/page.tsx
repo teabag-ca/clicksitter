@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 export default function VerifyPhonePage() {
   const router = useRouter()
+  const supabase = createClient()
   const [phone, setPhone] = useState('')
   const [code, setCode] = useState('')
   const [step, setStep] = useState<'phone' | 'verify'>('phone')
@@ -46,7 +48,7 @@ export default function VerifyPhonePage() {
       })
 
       if (response.ok) {
-        router.push('/(parent)/dashboard')
+        router.push('/dashboard')
       } else {
         alert('Invalid verification code')
       }

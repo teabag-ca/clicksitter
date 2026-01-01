@@ -51,7 +51,7 @@ export default async function ProDashboard() {
             Complete your profile to start receiving job offers
           </p>
           <Link
-            href="/(pro)/onboarding"
+            href="/onboarding"
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 inline-block"
           >
             Start Onboarding
@@ -65,7 +65,7 @@ export default async function ProDashboard() {
             Verify your identity to appear in search results
           </p>
           <Link
-            href="/(pro)/verify"
+            href="/verify"
             className="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 inline-block"
           >
             Verify Identity
@@ -78,7 +78,7 @@ export default async function ProDashboard() {
           <p className="text-yellow-800">
             Upgrade to Pro Bundle for AI Concierge, Tier 1 ranking, and Trust
             Badge.{' '}
-            <Link href="/(pro)/subscribe" className="underline font-semibold">
+            <Link href="/subscribe" className="underline font-semibold">
               Upgrade now ($9.99/mo)
             </Link>
           </p>
@@ -87,14 +87,14 @@ export default async function ProDashboard() {
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <Link
-          href="/(pro)/jobs"
+          href="/jobs"
           className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
         >
           <h2 className="text-xl font-semibold mb-2">💼 Browse Jobs</h2>
           <p className="text-gray-600">Find and apply to job opportunities</p>
         </Link>
         <Link
-          href="/(pro)/profile"
+          href="/profile"
           className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
         >
           <h2 className="text-xl font-semibold mb-2">👤 Edit Profile</h2>
@@ -118,7 +118,7 @@ export default async function ProDashboard() {
                     </p>
                   </div>
                   <Link
-                    href={`/(pro)/jobs/${job.id}`}
+                    href={`/jobs/${job.id}`}
                     className="text-blue-600 hover:underline"
                   >
                     View

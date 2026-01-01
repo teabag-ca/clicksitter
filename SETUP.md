@@ -157,3 +157,14 @@ npm start
 - Verify environment variables are set
 - Check Redis dashboard for key expiration
 
+
+## Twilio Phone Number Setup
+
+To send SMS verification codes, you need a Twilio phone number:
+
+1. Go to https://console.twilio.com/us1/develop/phone-numbers/manage/incoming
+2. Click "Buy a number" or use a trial number
+3. Copy the phone number (format: +1234567890)
+4. Add it to `.env.local` as `TWILIO_PHONE_NUMBER="+1234567890"`
+
+**Note:** In test mode, you can only send SMS to verified phone numbers in your Twilio account.
