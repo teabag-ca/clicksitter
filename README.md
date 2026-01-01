@@ -54,3 +54,28 @@ npm run dev
 
 See `.env.example` for required environment variables.
 
+
+## Testing Stripe Webhooks Locally
+
+To test webhooks during development:
+
+1. Start your Next.js dev server:
+   ```bash
+   npm run dev
+   ```
+
+2. In another terminal, run the webhook listener:
+   ```bash
+   ./scripts/test-webhook.sh
+   # Or manually:
+   stripe listen --forward-to localhost:3000/api/webhooks/stripe
+   ```
+
+3. Trigger test events:
+   ```bash
+   stripe trigger checkout.session.completed
+   stripe trigger customer.subscription.updated
+   stripe trigger identity.verification_session.verified
+   ```
+
+The webhook secret is already configured in `.env.local` for local development.

@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/Toast'
 
 export default function VerifyPhonePage() {
   const router = useRouter()
+  const { showToast } = useToast()
   const [phone, setPhone] = useState('')
   const [code, setCode] = useState('')
   const [step, setStep] = useState<'phone' | 'verify'>('phone')
@@ -24,11 +26,11 @@ export default function VerifyPhonePage() {
       if (response.ok) {
         setStep('verify')
       } else {
-        alert('Failed to send verification code')
+        showToast('Failed to send verification code', 'error')
       }
     } catch (error) {
       console.error('Error sending OTP:', error)
-      alert('Error sending verification code')
+      showToast('Error sending verification code', 'error')
     } finally {
       setLoading(false)
     }
@@ -46,13 +48,14 @@ export default function VerifyPhonePage() {
       })
 
       if (response.ok) {
-        router.push('/(parent)/dashboard')
+        showToast('Phone number verified successfully!', 'success')
+        router.push('/dashboard')
       } else {
-        alert('Invalid verification code')
+        showToast('Invalid verification code', 'error')
       }
     } catch (error) {
       console.error('Error verifying OTP:', error)
-      alert('Error verifying code')
+      showToast('Error verifying code', 'error')
     } finally {
       setLoading(false)
     }

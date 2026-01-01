@@ -41,7 +41,7 @@ export default async function ParentDashboard() {
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
           <p className="text-yellow-800">
             Subscribe to unlock unlimited chats and full background checks.{' '}
-            <Link href="/(parent)/subscribe" className="underline font-semibold">
+            <Link href="/subscribe" className="underline font-semibold">
               Subscribe now ($19/mo)
             </Link>
           </p>
@@ -50,7 +50,7 @@ export default async function ParentDashboard() {
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <Link
-          href="/(parent)/search"
+          href="/search"
           className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
         >
           <h2 className="text-xl font-semibold mb-2">🔍 Search Caregivers</h2>
@@ -59,7 +59,7 @@ export default async function ParentDashboard() {
           </p>
         </Link>
         <Link
-          href="/(parent)/jobs/new"
+          href="/jobs/new"
           className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
         >
           <h2 className="text-xl font-semibold mb-2">➕ Post a Job</h2>
@@ -88,7 +88,7 @@ export default async function ParentDashboard() {
                     </p>
                   </div>
                   <Link
-                    href={`/(parent)/jobs/${job.id}`}
+                    href={`/jobs/${job.id}`}
                     className="text-blue-600 hover:underline"
                   >
                     View

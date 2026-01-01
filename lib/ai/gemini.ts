@@ -3,29 +3,36 @@ import { google } from '@ai-sdk/google'
 import { z } from 'zod'
 
 // Initialize the Google Gemini model
-const model = google('gemini-2.0-flash-exp', {
-  apiKey: process.env.GOOGLE_AI_API_KEY!,
-})
+// @ai-sdk/google reads GOOGLE_GENERATIVE_AI_API_KEY from environment by default
+// We'll set it via process.env for compatibility
+if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY && process.env.GOOGLE_AI_API_KEY) {
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY
+}
+
+const model = google('gemini-2.0-flash-exp')
 
 export async function generateStructuredOutput<T extends z.ZodTypeAny>(
   prompt: string,
   schema: T
 ): Promise<{ object: z.infer<T>; usage?: { promptTokens?: number; completionTokens?: number } }> {
   const result = await generateObject({
-    model,
+    model: model as any,
     schema,
     prompt,
-  })
+  } as any) // Type assertion needed due to AI SDK v6 type complexity
 
   return {
     object: result.object,
-    usage: result.usage,
+    usage: result.usage ? {
+      promptTokens: (result.usage as any).promptTokens ?? 0,
+      completionTokens: (result.usage as any).completionTokens ?? 0,
+    } : undefined,
   }
 }
 
 export async function generateTextResponse(prompt: string): Promise<string> {
   const result = await generateText({
-    model,
+    model: model as any,
     prompt,
   })
 
@@ -42,7 +49,7 @@ export async function generateChatResponse(
   }))
 
   const result = await generateText({
-    model,
+    model: model as any,
     messages: aiMessages,
   })
 
@@ -59,7 +66,7 @@ export async function streamChatResponse(
   }))
 
   return streamText({
-    model,
+    model: model as any,
     messages: aiMessages,
   })
 }
