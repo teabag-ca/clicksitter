@@ -8,13 +8,13 @@ export default function HomePage() {
           <h1 className="text-2xl font-bold text-red-600">ClickSitter</h1>
           <div className="space-x-4">
             <Link
-              href="/(marketing)/auth"
+              href="/auth"
               className="text-slate-700 hover:text-red-600"
             >
               Sign In
             </Link>
             <Link
-              href="/(marketing)/auth"
+              href="/auth"
               className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
             >
               Get Started
@@ -34,13 +34,13 @@ export default function HomePage() {
           </p>
           <div className="flex gap-4 justify-center">
             <Link
-              href="/(marketing)/auth"
+              href="/auth"
               className="bg-red-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
             >
               Find a Caregiver
             </Link>
             <Link
-              href="/(marketing)/auth"
+              href="/auth"
               className="bg-white text-red-600 px-8 py-3 rounded-lg text-lg font-semibold border-2 border-red-600 hover:bg-red-50"
             >
               Become a Caregiver
