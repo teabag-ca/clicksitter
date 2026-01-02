@@ -48,7 +48,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   ? 'bg-red-50 border border-red-200 text-red-700'
                   : toast.type === 'success'
                   ? 'bg-emerald-50 border border-emerald-200 text-emerald-700'
-                  : 'bg-red-50 border border-red-200 text-red-700'
+                  : 'bg-slate-50 border border-slate-200 text-slate-700'
               }
             `}
           >
