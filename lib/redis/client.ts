@@ -1,8 +1,33 @@
 import { Redis } from '@upstash/redis'
 
-export const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+// Lazy initialization to avoid build-time errors when env vars are missing
+let redisInstance: Redis | null = null
+
+function getRedis(): Redis {
+  if (!redisInstance) {
+    const url = process.env.UPSTASH_REDIS_REST_URL
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN
+    
+    if (!url || !token) {
+      throw new Error(
+        'Redis configuration missing. UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN must be set.'
+      )
+    }
+    
+    redisInstance = new Redis({
+      url,
+      token,
+    })
+  }
+  
+  return redisInstance
+}
+
+// Export a getter function instead of direct instance
+export const redis = new Proxy({} as Redis, {
+  get(_target, prop) {
+    return getRedis()[prop as keyof Redis]
+  },
 })
 
 export async function getDailyCounter(key: string): Promise<number> {
