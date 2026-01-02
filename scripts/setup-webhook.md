@@ -20,11 +20,10 @@ stripe login
 stripe listen --forward-to localhost:3000/api/webhooks/stripe
 ```
 
-This will output a webhook signing secret like:
-`whsec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+This will output a webhook signing secret (starts with `whsec_`).
 
 Copy this and add it to your .env.local as:
-`STRIPE_WEBHOOK_SECRET="whsec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"`
+`STRIPE_WEBHOOK_SECRET="your_webhook_secret_here"`
 
 ## Option 2: Stripe Dashboard (For Production)
 
@@ -40,7 +39,7 @@ Copy this and add it to your .env.local as:
 6. Click on the endpoint to view details
 7. Click "Reveal" next to "Signing secret"
 8. Copy the secret (starts with `whsec_`)
-9. Add to .env.local: `STRIPE_WEBHOOK_SECRET="whsec_..."`
+9. Add to .env.local: `STRIPE_WEBHOOK_SECRET="your_webhook_secret_here"`
 
 ## Testing Webhooks Locally
 
