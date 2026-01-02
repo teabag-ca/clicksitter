@@ -32,8 +32,8 @@ export default async function SearchPage() {
       <h1 className="text-3xl font-bold mb-6">Search Caregivers</h1>
 
       {!isSubscriber && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <p className="text-blue-800">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <p className="text-red-700">
             <Link href="/(parent)/subscribe" className="underline font-semibold">
               Subscribe
             </Link>{' '}
@@ -56,28 +56,28 @@ export default async function SearchPage() {
                       {isSubscriber ? pro.users?.email : 'Caregiver'}
                     </h3>
                     {pro.background_check_status === 'active' && (
-                      <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                      <span className="bg-emerald-50 text-emerald-700 text-xs px-2 py-1 rounded border border-emerald-200">
                         ✓ Verified + Background Check
                       </span>
                     )}
                     {pro.background_check_status !== 'active' &&
                       pro.identity_verified && (
-                        <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                        <span className="bg-red-50 text-red-700 text-xs px-2 py-1 rounded border border-red-200">
                         ✓ Verified
                       </span>
                       )}
                   </div>
-                  <p className="text-gray-600 mb-2">
+                  <p className="text-slate-700 mb-2">
                     {isSubscriber ? pro.bio : 'Profile available to subscribers'}
                   </p>
-                  <p className="font-semibold text-blue-600">
+                  <p className="font-semibold text-red-600">
                     ${pro.hourly_rate}/hr
                   </p>
                 </div>
                 {isSubscriber && (
                   <Link
                     href={`/(parent)/professionals/${pro.user_id}`}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
                   >
                     View Profile
                   </Link>
@@ -86,7 +86,7 @@ export default async function SearchPage() {
             </div>
           ))
         ) : (
-          <p className="text-gray-600">No caregivers available yet.</p>
+          <p className="text-slate-700">No caregivers available yet.</p>
         )}
       </div>
     </div>

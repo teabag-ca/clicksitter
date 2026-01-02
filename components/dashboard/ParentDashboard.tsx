@@ -32,14 +32,14 @@ export default async function ParentDashboard() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Welcome back!</h1>
-        <p className="text-gray-600">
+        <p className="text-slate-700">
           Find trusted caregivers for your family
         </p>
       </div>
 
       {!subscription && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-          <p className="text-yellow-800">
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+          <p className="text-amber-700">
             Subscribe to unlock unlimited chats and full background checks.{' '}
             <Link href="/subscribe" className="underline font-semibold">
               Subscribe now ($19/mo)
@@ -54,7 +54,7 @@ export default async function ParentDashboard() {
           className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
         >
           <h2 className="text-xl font-semibold mb-2">🔍 Search Caregivers</h2>
-          <p className="text-gray-600">
+          <p className="text-slate-700">
             Find verified caregivers in your area
           </p>
         </Link>
@@ -63,7 +63,7 @@ export default async function ParentDashboard() {
           className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
         >
           <h2 className="text-xl font-semibold mb-2">➕ Post a Job</h2>
-          <p className="text-gray-600">
+          <p className="text-slate-700">
             Create a job posting for caregivers to apply
           </p>
         </Link>
@@ -83,13 +83,13 @@ export default async function ParentDashboard() {
                     <p className="font-semibold">
                       {new Date(job.start_time).toLocaleDateString()}
                     </p>
-                    <p className="text-gray-600">
+                    <p className="text-slate-700">
                       {job.status} • {job.number_of_kids} kids
                     </p>
                   </div>
                   <Link
                     href={`/jobs/${job.id}`}
-                    className="text-blue-600 hover:underline"
+                    className="text-red-600 hover:underline"
                   >
                     View
                   </Link>
@@ -98,7 +98,7 @@ export default async function ParentDashboard() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-600">No jobs yet. Post your first job!</p>
+          <p className="text-slate-700">No jobs yet. Post your first job!</p>
         )}
       </div>
     </div>

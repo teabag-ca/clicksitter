@@ -82,19 +82,19 @@ export default function SubscribePage() {
           <h2 className="text-2xl font-semibold mb-4">Parent Subscriber - $19/month</h2>
           <ul className="space-y-2 mb-6">
             <li className="flex items-center">
-              <span className="text-green-600 mr-2">✓</span>
+              <span className="text-emerald-600 mr-2">✓</span>
               Unlimited Chat with caregivers
             </li>
             <li className="flex items-center">
-              <span className="text-green-600 mr-2">✓</span>
+              <span className="text-emerald-600 mr-2">✓</span>
               Video Interviews
             </li>
             <li className="flex items-center">
-              <span className="text-green-600 mr-2">✓</span>
+              <span className="text-emerald-600 mr-2">✓</span>
               View Full Background Checks
             </li>
             <li className="flex items-center">
-              <span className="text-green-600 mr-2">✓</span>
+              <span className="text-emerald-600 mr-2">✓</span>
               Access to all caregiver contact information
             </li>
           </ul>
@@ -102,7 +102,7 @@ export default function SubscribePage() {
           <button
             onClick={handleSubscribe}
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 text-lg font-semibold"
+            className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
           >
             {loading ? 'Processing...' : 'Subscribe Now'}
           </button>
@@ -119,19 +119,19 @@ export default function SubscribePage() {
         <h2 className="text-2xl font-semibold mb-4">Pro Bundle - $9.99/month</h2>
         <ul className="space-y-2 mb-6">
           <li className="flex items-center">
-            <span className="text-green-600 mr-2">✓</span>
+            <span className="text-emerald-600 mr-2">✓</span>
             AI Concierge (Voice Management)
           </li>
           <li className="flex items-center">
-            <span className="text-green-600 mr-2">✓</span>
+            <span className="text-emerald-600 mr-2">✓</span>
             Tier 1 Ranking (Top of Search)
           </li>
           <li className="flex items-center">
-            <span className="text-green-600 mr-2">✓</span>
+            <span className="text-emerald-600 mr-2">✓</span>
             Trust Badge (Background Check included)
           </li>
           <li className="flex items-center">
-            <span className="text-green-600 mr-2">✓</span>
+            <span className="text-emerald-600 mr-2">✓</span>
             50 AI interactions per day
           </li>
         </ul>
@@ -139,7 +139,7 @@ export default function SubscribePage() {
         <button
           onClick={handleSubscribe}
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 text-lg font-semibold"
+          className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
         >
           {loading ? 'Processing...' : 'Upgrade Now'}
         </button>

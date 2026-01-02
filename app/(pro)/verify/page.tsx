@@ -47,7 +47,7 @@ export default function VerifyPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
           <p className="text-lg mb-4">Redirecting to identity verification...</p>
-          <p className="text-gray-600">Please wait while we set up your verification session.</p>
+          <p className="text-slate-700">Please wait while we set up your verification session.</p>
         </div>
       </div>
     )
