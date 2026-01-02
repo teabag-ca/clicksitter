@@ -35,8 +35,8 @@ export default async function JobsPage() {
                   <h3 className="text-xl font-semibold mb-2">
                     {new Date(job.start_time).toLocaleDateString()}
                   </h3>
-                  <p className="text-gray-600 mb-2">{job.description}</p>
-                  <div className="flex gap-4 text-sm text-gray-600">
+                  <p className="text-slate-700 mb-2">{job.description}</p>
+                  <div className="flex gap-4 text-sm text-slate-700">
                     <span>{job.number_of_kids} kids</span>
                     <span>${job.agreed_rate}/hr</span>
                     <span>
@@ -47,7 +47,7 @@ export default async function JobsPage() {
                 </div>
                 <Link
                   href={`/(pro)/jobs/${job.id}`}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
                 >
                   View Details
                 </Link>
@@ -55,7 +55,7 @@ export default async function JobsPage() {
             </div>
           ))
         ) : (
-          <p className="text-gray-600">No open jobs available at the moment.</p>
+          <p className="text-slate-700">No open jobs available at the moment.</p>
         )}
       </div>
     </div>

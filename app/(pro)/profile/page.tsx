@@ -90,7 +90,7 @@ export default function ProfilePage() {
             onChange={(e) =>
               setFormData({ ...formData, bio: e.target.value })
             }
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
             rows={6}
             placeholder="Tell parents about yourself..."
           />
@@ -107,12 +107,12 @@ export default function ProfilePage() {
             onChange={(e) =>
               setFormData({ ...formData, hourly_rate: e.target.value })
             }
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
           />
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">
+          <p className="text-sm text-slate-700 mb-2">
             Availability: Use the calendar grid to set your available times
             (manual entry for free tier)
           </p>
@@ -121,20 +121,20 @@ export default function ProfilePage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
         >
           {loading ? 'Saving...' : 'Save Profile'}
         </button>
       </form>
 
       {profile && (
-        <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+        <div className="mt-6 bg-slate-50 p-4 rounded-lg">
           <h2 className="font-semibold mb-2">Verification Status</h2>
           <div className="space-y-2 text-sm">
             <p>
               Identity:{' '}
               {profile.identity_verified ? (
-                <span className="text-green-600">✓ Verified</span>
+                <span className="text-emerald-600">✓ Verified</span>
               ) : (
                 <span className="text-red-600">✗ Not Verified</span>
               )}
@@ -142,9 +142,9 @@ export default function ProfilePage() {
             <p>
               Background Check:{' '}
               {profile.background_check_status === 'active' ? (
-                <span className="text-green-600">✓ Active</span>
+                <span className="text-emerald-600">✓ Active</span>
               ) : (
-                <span className="text-gray-600">Not completed</span>
+                <span className="text-slate-600">Not completed</span>
               )}
             </p>
           </div>

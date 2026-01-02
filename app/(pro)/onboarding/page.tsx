@@ -75,8 +75,8 @@ export default function OnboardingPage() {
               <div
                 className={`max-w-[80%] rounded-lg p-3 ${
                   msg.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-800'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-slate-100 text-slate-800'
                 }`}
               >
                 {msg.content}
@@ -85,15 +85,15 @@ export default function OnboardingPage() {
           ))}
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 rounded-lg p-3">Thinking...</div>
+              <div className="bg-slate-100 rounded-lg p-3">Thinking...</div>
             </div>
           )}
         </div>
       </div>
 
       {isComplete ? (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-          <p className="text-green-800 font-semibold">
+        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-center">
+          <p className="text-emerald-700 font-semibold">
             Profile complete! Redirecting to identity verification...
           </p>
         </div>
@@ -104,13 +104,13 @@ export default function OnboardingPage() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your response..."
-            className="flex-1 border rounded-lg px-4 py-2"
+            className="flex-1 border border-slate-300 rounded-lg px-4 py-2 text-slate-900 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
             disabled={loading}
           />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
           >
             Send
           </button>

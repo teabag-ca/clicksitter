@@ -45,17 +45,17 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               flex items-center justify-between
               ${
                 toast.type === 'error'
-                  ? 'bg-red-50 border border-red-200 text-red-800'
+                  ? 'bg-red-50 border border-red-200 text-red-700'
                   : toast.type === 'success'
-                  ? 'bg-green-50 border border-green-200 text-green-800'
-                  : 'bg-blue-50 border border-blue-200 text-blue-800'
+                  ? 'bg-emerald-50 border border-emerald-200 text-emerald-700'
+                  : 'bg-slate-50 border border-slate-200 text-slate-700'
               }
             `}
           >
             <p className="flex-1">{toast.message}</p>
             <button
               onClick={() => removeToast(toast.id)}
-              className="ml-4 text-gray-400 hover:text-gray-600"
+              className="ml-4 text-slate-400 hover:text-slate-600"
             >
               ×
             </button>
