@@ -142,7 +142,7 @@ export default function AuthPage() {
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
           />
         </div>
 
@@ -155,26 +155,26 @@ export default function AuthPage() {
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
         >
           {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
         </button>
       </form>
 
-      <p className="text-center mt-4 text-gray-600">
+      <p className="text-center mt-4 text-slate-700">
         {isSignUp ? (
           <>
             Already have an account?{' '}
             <button
               onClick={() => setIsSignUp(false)}
-              className="text-blue-600 hover:underline"
+              className="text-red-600 hover:underline"
             >
               Sign in
             </button>
@@ -184,7 +184,7 @@ export default function AuthPage() {
             Don't have an account?{' '}
             <button
               onClick={() => setIsSignUp(true)}
-              className="text-blue-600 hover:underline"
+              className="text-red-600 hover:underline"
             >
               Sign up
             </button>

@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/Toast'
 
 export default function VerifyPhonePage() {
   const router = useRouter()
+  const { showToast } = useToast()
   const [phone, setPhone] = useState('')
   const [code, setCode] = useState('')
   const [step, setStep] = useState<'phone' | 'verify'>('phone')
@@ -24,11 +26,11 @@ export default function VerifyPhonePage() {
       if (response.ok) {
         setStep('verify')
       } else {
-        alert('Failed to send verification code')
+        showToast('Failed to send verification code', 'error')
       }
     } catch (error) {
       console.error('Error sending OTP:', error)
-      alert('Error sending verification code')
+      showToast('Error sending verification code', 'error')
     } finally {
       setLoading(false)
     }
@@ -46,13 +48,14 @@ export default function VerifyPhonePage() {
       })
 
       if (response.ok) {
-        router.push('/(parent)/dashboard')
+        showToast('Phone number verified successfully!', 'success')
+        router.push('/dashboard')
       } else {
-        alert('Invalid verification code')
+        showToast('Invalid verification code', 'error')
       }
     } catch (error) {
       console.error('Error verifying OTP:', error)
-      alert('Error verifying code')
+      showToast('Error verifying code', 'error')
     } finally {
       setLoading(false)
     }
@@ -64,7 +67,7 @@ export default function VerifyPhonePage() {
 
       {step === 'phone' ? (
         <form onSubmit={handleSendOTP} className="bg-white p-6 rounded-lg shadow space-y-4">
-          <p className="text-gray-600 mb-4">
+          <p className="text-slate-700 mb-4">
             We need to verify your phone number to ensure account security.
           </p>
           <div>
@@ -77,20 +80,20 @@ export default function VerifyPhonePage() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+1234567890"
-              className="w-full border rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
           >
             {loading ? 'Sending...' : 'Send Verification Code'}
           </button>
         </form>
       ) : (
         <form onSubmit={handleVerifyOTP} className="bg-white p-6 rounded-lg shadow space-y-4">
-          <p className="text-gray-600 mb-4">
+          <p className="text-slate-700 mb-4">
             Enter the 6-digit code sent to {phone}
           </p>
           <div>
@@ -104,20 +107,20 @@ export default function VerifyPhonePage() {
               value={code}
               onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
               placeholder="000000"
-              className="w-full border rounded-lg px-3 py-2 text-center text-2xl tracking-widest"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-center text-2xl tracking-widest text-slate-900 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 active:bg-red-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
           >
             {loading ? 'Verifying...' : 'Verify'}
           </button>
           <button
             type="button"
             onClick={() => setStep('phone')}
-            className="w-full text-gray-600 py-2"
+            className="w-full text-slate-600 py-2 hover:text-slate-700"
           >
             Change phone number
           </button>

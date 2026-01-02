@@ -17,30 +17,30 @@ export default async function ProLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm">
+    <div className="min-h-screen bg-slate-50">
+      <nav className="bg-white shadow-sm border-b border-slate-200">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/(pro)/dashboard" className="text-2xl font-bold text-blue-600">
+            <Link href="/dashboard" className="text-2xl font-bold text-red-600">
               ClickSitter
             </Link>
             <div className="flex gap-4 items-center">
               <Link
-                href="/(pro)/jobs"
-                className="text-gray-700 hover:text-blue-600"
+                href="/jobs"
+                className="text-slate-700 hover:text-red-600"
               >
                 Jobs
               </Link>
               <Link
-                href="/(pro)/profile"
-                className="text-gray-700 hover:text-blue-600"
+                href="/profile"
+                className="text-slate-700 hover:text-red-600"
               >
                 Profile
               </Link>
               <form action="/api/auth/signout" method="post">
                 <button
                   type="submit"
-                  className="text-gray-700 hover:text-blue-600"
+                  className="text-slate-700 hover:text-red-600"
                 >
                   Sign Out
                 </button>

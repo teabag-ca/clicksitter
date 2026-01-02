@@ -61,18 +61,37 @@ export async function middleware(request: NextRequest) {
   // Route protection based on path
   const path = request.nextUrl.pathname
 
-  // Public routes
+  // Public routes - API webhooks and public endpoints
   if (path.startsWith('/api/webhooks') || path.startsWith('/api/public')) {
     return response
   }
 
-  // Marketing routes are public
-  if (path.startsWith('/(marketing)') || path === '/') {
+  // Public routes - marketing pages (landing, auth)
+  if (path === '/' || path === '/auth' || path.startsWith('/auth/')) {
     return response
   }
 
   // Protected routes require authentication
-  if (path.startsWith('/(parent)') || path.startsWith('/(pro)')) {
+  // Note: Route groups (parent) and (pro) don't appear in URLs
+  
+  // Pro-specific routes (only exist in pro portal)
+  const isProSpecificRoute = path.startsWith('/onboarding') || 
+                             (path.startsWith('/verify') && !path.startsWith('/verify-phone')) ||
+                             path.startsWith('/profile')
+  
+  // Parent-specific routes (only exist in parent portal)
+  const isParentSpecificRoute = path.startsWith('/search')
+  
+  // Shared routes (routed by role in single pages)
+  const isSharedRoute = path.startsWith('/dashboard') || 
+                        path.startsWith('/subscribe') ||
+                        path.startsWith('/verify-phone')
+  
+  // Jobs routes (different paths: /jobs for pro, /jobs/new for parent)
+  const isJobsRoute = path.startsWith('/jobs')
+
+  // If it's any protected route
+  if (isProSpecificRoute || isParentSpecificRoute || isSharedRoute || isJobsRoute) {
     if (!user) {
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/'
@@ -86,29 +105,37 @@ export async function middleware(request: NextRequest) {
       .eq('id', user.id)
       .single()
 
+    // Pass user role via header to avoid duplicate queries in page components
+    if (userData?.role) {
+      response.headers.set('x-user-role', userData.role)
+    }
+
     if (!userData?.phone_verified) {
       // Allow access to phone verification page only
       if (!path.includes('/verify-phone')) {
         const redirectUrl = request.nextUrl.clone()
-        redirectUrl.pathname = path.startsWith('/(parent)') 
-          ? '/(parent)/verify-phone' 
-          : '/(pro)/verify-phone'
+        redirectUrl.pathname = '/verify-phone'
         return NextResponse.redirect(redirectUrl)
       }
     }
 
     // Role-based route protection
-    if (path.startsWith('/(parent)') && userData?.role !== 'parent') {
+    // Pro-specific routes require professional role
+    if (isProSpecificRoute && userData?.role !== 'professional') {
       const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/(pro)/dashboard'
+      redirectUrl.pathname = '/dashboard'
       return NextResponse.redirect(redirectUrl)
     }
 
-    if (path.startsWith('/(pro)') && userData?.role !== 'professional') {
+    // Parent-specific routes require parent role
+    if (isParentSpecificRoute && userData?.role !== 'parent') {
       const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/(parent)/dashboard'
+      redirectUrl.pathname = '/dashboard'
       return NextResponse.redirect(redirectUrl)
     }
+
+    // For shared routes, we'll let the page components handle role checking
+    // since both portals have /dashboard, /jobs, etc. with different layouts
   }
 
   return response
