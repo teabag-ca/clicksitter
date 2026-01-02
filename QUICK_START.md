@@ -16,10 +16,7 @@ All services are configured and database migrations are complete.
    npm run dev
    ```
 
-3. **Open your browser:**
-   ```
-   http://localhost:3000
-   ```
+3. **Open your browser at http://localhost:3000**
 
 ## 🧪 Test the Application
 
